@@ -1,0 +1,77 @@
+# Modelo de aplicação web + banco no Swarm, atrás do Traefik, com deploy sem queda.
+# Troque nomes, imagem, domínio e variáveis. Segredos via `docker secret`, não no arquivo.
+# Subir: APP_HOST=app.dominio.com docker stack deploy -c app-exemplo-stack.yml app
+version: "3.8"
+
+services:
+  web:
+    image: registro.exemplo.com/minha-app:1.4.2     # versão fixa
+    # O dreno segura o SIGTERM ~20 s: o Traefik tira a réplica da roleta antes de ela fechar.
+    entrypoint: ["/dreno.sh"]
+    command: ["node", "server.js"]
+    environment:
+      DB_HOST: db
+      DRENO_SEGUNDOS: "20"
+    configs:
+      - source: dreno
+        target: /dreno.sh
+        mode: 0755
+    networks: [publica, interna]
+    stop_grace_period: 45s            # maior que o dreno + o tempo de fechar
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/saude"]   # rota que toca o banco
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    deploy:
+      replicas: 2
+      update_config:
+        order: start-first            # sobe a nova antes de tirar a velha
+        parallelism: 1
+        failure_action: rollback
+        monitor: 30s
+      restart_policy:
+        condition: any                # sem max_attempts: com limite e sem janela, o serviço morre
+        delay: 10s                    # em silêncio depois de N falhas, e saída 0 nunca reinicia
+      resources:
+        limits: { memory: 1G }
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.app.rule=Host(`${APP_HOST}`)
+        - traefik.http.routers.app.entrypoints=websecure
+        - traefik.http.routers.app.tls.certresolver=le
+        - traefik.http.routers.app.middlewares=sem-local-cf@swarm
+        - traefik.http.services.app.loadbalancer.server.port=3000
+        - traefik.http.services.app.loadbalancer.healthcheck.path=/saude
+        - traefik.http.services.app.loadbalancer.healthcheck.interval=5s
+
+  db:
+    image: mysql:8.4.11
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_root
+    secrets: [mysql_root]
+    volumes:
+      - mysql_dados:/var/lib/mysql      # dado em volume nomeado, nunca dentro do contêiner
+    networks: [interna]                 # sem porta publicada: só a aplicação fala com o banco
+    deploy:
+      replicas: 1
+      resources:
+        limits: { memory: 6G }
+
+configs:
+  dreno:
+    file: ./dreno.sh
+
+secrets:
+  mysql_root:
+    external: true                      # openssl rand -base64 32 | docker secret create mysql_root -
+
+networks:
+  publica:
+    external: true
+  interna:
+    driver: overlay
+
+volumes:
+  mysql_dados:

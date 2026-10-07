@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="236" viewBox="0 0 860 236" role="img" aria-label="Cases: Antes, R$ 6,7 mil por mês: ~11 VMs, banco gerenciado e balanceador; Depois, ~R$ 320 por mês, já contando a VPS no preço de renovação">
+<title>Cases: Antes, R$ 6,7 mil por mês: ~11 VMs, banco gerenciado e balanceador; Depois, ~R$ 320 por mês, já contando a VPS no preço de renovação</title>
+<style>
+.up{opacity:0;animation:up .9s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.run{stroke-dasharray:9 91;animation:run 7s linear infinite}
+@keyframes run{to{stroke-dashoffset:-100}}
+.shine{animation:shine 8s ease-in-out infinite}
+@keyframes shine{0%,72%{transform:translateX(-420px)}100%{transform:translateX(1300px)}}
+.ln{stroke-dasharray:100;stroke-dashoffset:100;animation:ln 1.4s ease forwards}
+@keyframes ln{to{stroke-dashoffset:0}}
+.emo{font:22px 'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}
+.ct{font:700 21px -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;fill:#F1ECE3}
+.cs{font:500 13px -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;fill:#A39A8A}
+.cp{font:700 10.5px -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;letter-spacing:1.3px;fill:#D6BD8F}
+.cn{font:400 50px Georgia,'Times New Roman',serif;fill:url(#g)}
+.cl{font:500 14px -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;fill:#CFC6B6}
+.cf{font:500 12.5px -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;fill:#8F8778}
+.nn{font:400 46px Georgia,'Times New Roman',serif;fill:url(#g)}
+.nl{font:500 13.5px -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;fill:#CFC6B6}
+.mk{font:400 20px Georgia,'Times New Roman',serif;fill:#D6BD8F}
+.mt{font:700 16px -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;fill:#F1ECE3}
+.ms{font:500 12.5px -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;fill:#A39A8A}
+.gt{font:700 13.5px -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;fill:#F1ECE3}
+.pt{font:700 14.5px -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;fill:#F1ECE3}
+.ps{font:500 12.5px -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;fill:#A39A8A}
+.at{font:700 16px -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;fill:#F1ECE3}
+.as{font:500 12px -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;fill:#A39A8A}
+.ap{font:700 9.5px -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;letter-spacing:1.2px;fill:#D6BD8F}
+.al{font:500 12.5px -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;fill:#CFC6B6}
+</style>
+<defs>
+<linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E2CDA4"/><stop offset="1" stop-color="#8C7148"/></linearGradient>
+<linearGradient id="sh" x1="0" x2="1"><stop offset="0" stop-color="#F1E3C4" stop-opacity="0"/><stop offset=".5" stop-color="#F1E3C4" stop-opacity=".09"/><stop offset="1" stop-color="#F1E3C4" stop-opacity="0"/></linearGradient>
+</defs>
+<g transform="translate(0.0,0)"><rect x="1" y="1" width="418" height="234" rx="16" fill="#151310" stroke="#2A2723"/>
+<clipPath id="cc0"><rect x="1" y="1" width="418" height="234" rx="16"/></clipPath>
+<g clip-path="url(#cc0)"><g class="shine"><rect x="0" y="-20" width="150" height="276" fill="url(#sh)" transform="skewX(-18)"/></g></g>
+<rect class="run" x="1" y="1" width="418" height="234" rx="16" fill="none" stroke="url(#g)" stroke-width="1.6" pathLength="100"/>
+<rect x="22" y="22" width="40" height="40" rx="11" fill="#1F1C18" stroke="#2A2723"/>
+<text class="emo" x="42" y="50" text-anchor="middle">☁️</text>
+<text class="ct" x="76" y="40">Antes</text>
+<text class="cs" x="76" y="59">Google Cloud gerenciado</text>
+<rect x="316.8" y="22" width="81.2" height="22" rx="11.0" fill="#1F1C18" stroke="#3A352E"/><text class="cp" x="357.4" y="37.0" text-anchor="middle">SETEMBRO</text>
+<g class="up" style="animation-delay:0.10s"><text class="cn" x="22" y="138">R$ 6,7 mil</text></g>
+<g class="up" style="animation-delay:0.35s"><text class="cl" x="24" y="166" text-anchor="start">por mês: ~11 VMs, banco</text><text class="cl" x="24" y="185" text-anchor="start">gerenciado e balanceador</text></g>
+<line class="ln" x1="24" y1="196" x2="396" y2="196" stroke="#2A2723" pathLength="100" style="animation-delay:0.50s"/>
+<g class="up" style="animation-delay:0.60s"><text class="cf" x="24" y="219">VMs ~3/4 da conta · banco gerenciado ~1/4</text></g></g><g transform="translate(440.0,0)"><rect x="1" y="1" width="418" height="234" rx="16" fill="#151310" stroke="#2A2723"/>
+<clipPath id="cc1"><rect x="1" y="1" width="418" height="234" rx="16"/></clipPath>
+<g clip-path="url(#cc1)"><g class="shine"><rect x="0" y="-20" width="150" height="276" fill="url(#sh)" transform="skewX(-18)"/></g></g>
+<rect class="run" x="1" y="1" width="418" height="234" rx="16" fill="none" stroke="url(#g)" stroke-width="1.6" pathLength="100"/>
+<rect x="22" y="22" width="40" height="40" rx="11" fill="#1F1C18" stroke="#2A2723"/>
+<text class="emo" x="42" y="50" text-anchor="middle">🖥️</text>
+<text class="ct" x="76" y="40">Depois</text>
+<text class="cs" x="76" y="59">uma VPS com Docker Swarm</text>
+<rect x="324.2" y="22" width="73.8" height="22" rx="11.0" fill="#1F1C18" stroke="#3A352E"/><text class="cp" x="361.1" y="37.0" text-anchor="middle">OUTUBRO</text>
+<g class="up" style="animation-delay:0.35s"><text class="cn" x="22" y="138">~R$ 320</text></g>
+<g class="up" style="animation-delay:0.60s"><text class="cl" x="24" y="166" text-anchor="start">por mês, já contando a VPS</text><text class="cl" x="24" y="185" text-anchor="start">no preço de renovação</text></g>
+<line class="ln" x1="24" y1="196" x2="396" y2="196" stroke="#2A2723" pathLength="100" style="animation-delay:0.75s"/>
+<g class="up" style="animation-delay:0.85s"><text class="cf" x="24" y="219">8 vCPU · 32 GB de RAM · 400 GB NVMe</text></g></g>
+</svg>

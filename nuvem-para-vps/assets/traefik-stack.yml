@@ -1,0 +1,54 @@
+# Traefik v3 como borda da VPS (Docker Swarm de um nó).
+# Antes: docker network create -d overlay --attachable publica
+# Subir:  ACME_EMAIL=voce@dominio.com docker stack deploy -c traefik-stack.yml borda
+version: "3.8"
+
+services:
+  traefik:
+    image: traefik:v3.7.14          # fixe a versão estável do dia; nunca "latest"
+    command:
+      - --providers.swarm=true
+      - --providers.swarm.exposedByDefault=false
+      - --providers.swarm.network=publica
+      - --entrypoints.web.address=:80
+      - --entrypoints.web.http.redirections.entrypoint.to=websecure
+      - --entrypoints.web.http.redirections.entrypoint.scheme=https
+      - --entrypoints.websecure.address=:443
+      - --certificatesresolvers.le.acme.tlschallenge=true
+      - --certificatesresolvers.le.acme.email=${ACME_EMAIL}
+      - --certificatesresolvers.le.acme.storage=/certificados/acme.json
+      # Com Cloudflare na frente e a origem fechada para ela, dá para confiar no X-Forwarded-For:
+      # - --entrypoints.websecure.forwardedHeaders.trustedIPs=<faixas da Cloudflare, separadas por vírgula>
+      - --accesslog=true
+      - --log.level=INFO
+    ports:
+      # modo host: a borda vê o IP de quem chegou (sem o NAT da malha do Swarm)
+      - { target: 80, published: 80, protocol: tcp, mode: host }
+      - { target: 443, published: 443, protocol: tcp, mode: host }
+    volumes:
+      # O socket do Docker dá poder de root a quem o controla. Para endurecer, use um
+      # docker-socket-proxy (só leitura de serviços) e aponte --providers.swarm.endpoint para ele.
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - certificados:/certificados
+    networks: [publica]
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+      resources:
+        limits: { memory: 512M }
+      labels:
+        # Middleware para as aplicações usarem (sem-local-cf@swarm):
+        # apaga os cabeçalhos de localização que a Cloudflare injeta. Cidade com acento
+        # ("São Paulo") derruba servidor de websocket que exige ASCII nos cabeçalhos.
+        - traefik.http.middlewares.sem-local-cf.headers.customrequestheaders.cf-ipcity=
+        - traefik.http.middlewares.sem-local-cf.headers.customrequestheaders.cf-region=
+        - traefik.http.middlewares.sem-local-cf.headers.customrequestheaders.cf-region-code=
+        - traefik.http.middlewares.sem-local-cf.headers.customrequestheaders.cf-metro-code=
+        - traefik.http.middlewares.sem-local-cf.headers.customrequestheaders.cf-postal-code=
+
+networks:
+  publica:
+    external: true
+
+volumes:
+  certificados:

@@ -1,0 +1,10 @@
+name = "vigia-externo"
+main = "vigia-worker.js"
+compatibility_date = "2026-09-01"
+
+[triggers]
+crons = ["*/5 * * * *"]
+
+[[kv_namespaces]]
+binding = "ESTADO"
+id = "COLOQUE_AQUI_O_ID_DO_KV"
