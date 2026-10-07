@@ -1,13 +1,14 @@
 ---
 name: nuvem-para-vps
-description: Planeja e conduz a saída de uma nuvem gerenciada (Google Cloud principalmente, com notas para AWS e Azure) para uma VPS com Docker Swarm, Portainer e Traefik, para cortar custo sem perder dado. Mede o custo real por serviço, faz o inventário só com comandos de leitura, separa o que tem estado do que não tem, dimensiona a VPS pelo uso medido, monta a máquina com segurança, ensaia a cópia dos dados, escreve o plano de corte com janela e volta atrás, põe backup fora da VPS com restauração provada e um vigia externo. Use sempre que alguém falar em conta de nuvem alta, sair do Google Cloud, AWS ou Azure, migrar para VPS, "a fatura do GCP está absurda", trocar Cloud SQL ou Memorystore por contêiner, consolidar VMs numa máquina só, ou montar Docker Swarm com Portainer e Traefik, mesmo que a pessoa não diga "migração".
+description: Planeja e conduz a saída de uma nuvem cobrada por uso (Google Cloud principalmente, com notas para AWS e Azure), com várias VMs e serviços gerenciados, para um servidor de preço fixo (VPS) num provedor de hospedagem, com Docker Swarm, Portainer e Traefik, para cortar custo sem perder dado. Mede o custo real por serviço, faz o inventário só com comandos de leitura, separa o que tem estado do que não tem, dimensiona a VPS pelo uso medido, monta a máquina com segurança, ensaia a cópia dos dados, escreve o plano de corte com janela e volta atrás, põe backup fora da VPS com restauração provada e um vigia externo. Use sempre que alguém falar em conta de nuvem alta, sair do Google Cloud, AWS ou Azure, migrar para VPS, "a fatura do GCP está absurda", trocar Cloud SQL ou Memorystore por contêiner, consolidar VMs numa máquina só, ou montar Docker Swarm com Portainer e Traefik, mesmo que a pessoa não diga "migração".
 ---
 
-# Da nuvem gerenciada para uma VPS
+# Da nuvem cobrada por uso para um servidor de preço fixo
 
-Muita empresa pequena paga nuvem gerenciada como se fosse grande: banco gerenciado, cache
-gerenciado, várias VMs meio ociosas, balanceador, IPs, discos esquecidos. Uma VPS bem montada
-roda a mesma carga por uma fração do preço. O risco não está na VPS; está na mudança: perder dado,
+Muita empresa pequena paga a nuvem como se fosse grande: várias VMs meio ociosas, banco e cache
+gerenciados, balanceador, IPs, discos esquecidos, tudo cobrado por uso. Um servidor só, de preço
+fixo por mês (uma VPS num provedor de hospedagem), bem montado e com tudo em contêiner, roda a
+mesma carga por uma fração do preço. O risco não está na VPS; está na mudança: perder dado,
 ficar fora do ar, ou descobrir depois que algo dependia de um serviço que ninguém lembrava.
 
 Esta skill conduz a mudança em fases curtas, cada uma com uma saída concreta. **Ler é livre;

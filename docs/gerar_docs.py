@@ -21,14 +21,14 @@ BLOCOS = {
         {"valor": "−95%", "rotulo": ["no custo mensal", "de nuvem"], "fonte": "faturamento"},
         {"valor": "14 min", "rotulo": ["fora do ar no corte,", "de madrugada"], "fonte": "log do corte"},
         {"valor": "6 dias", "rotulo": ["do plano às VMs", "do Google apagadas"], "fonte": "linha do tempo"},
-        {"valor": "11 → 1", "rotulo": ["máquinas virtuais", "viraram uma VPS"], "fonte": "inventário"},
+        {"valor": "11 → 1", "rotulo": ["máquinas virtuais", "viraram um servidor"], "fonte": "inventário"},
     ]}),
     "antes-depois": ("cases", {"cases": [
         {"icone": "☁️", "nome": "Antes", "sub": "Google Cloud gerenciado", "selo": "SETEMBRO",
          "numero": "R$ 6,7 mil", "rotulo": ["por mês: ~11 VMs, banco", "gerenciado e balanceador"],
          "rodape": "VMs ~3/4 da conta · banco gerenciado ~1/4"},
-        {"icone": "🖥️", "nome": "Depois", "sub": "uma VPS com Docker Swarm", "selo": "OUTUBRO",
-         "numero": "~R$ 320", "rotulo": ["por mês, já contando a VPS", "no preço de renovação"],
+        {"icone": "🖥️", "nome": "Depois", "sub": "um servidor de preço fixo", "selo": "OUTUBRO",
+         "numero": "~R$ 320", "rotulo": ["por mês, com o servidor no", "preço cheio de renovação"],
          "rodape": "8 vCPU · 32 GB de RAM · 400 GB NVMe"},
     ]}),
     "deu-errado": ("cases", {"cases": [
@@ -49,7 +49,7 @@ BLOCOS = {
         {"nome": "Medir", "sub": ["custo por serviço", "e uso real"]},
         {"nome": "Ensaiar", "sub": ["cópia e contagem", "sem desligar nada"]},
         {"nome": "Cortar", "sub": ["um passo por vez,", "com volta pronta"]},
-        {"nome": "Vigiar", "sub": ["de fora da VPS,", "a cada 5 minutos"]},
+        {"nome": "Vigiar", "sub": ["de fora do servidor,", "a cada 5 minutos"]},
         {"nome": "Desligar", "sub": ["parar primeiro,", "apagar dias depois"]},
     ]}}),
     "principios": ("principios", {"principios": {"itens": [

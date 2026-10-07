@@ -1,27 +1,27 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:E2CDA4,100:B8995F&height=210&section=header&text=Do%20Google%20Cloud%20para%20uma%20VPS&fontColor=14110C&fontSize=42&fontAlignY=36&desc=em%20uma%20semana%2C%20com%2095%25%20menos%20na%20conta&descAlignY=58&descColor=14110C&descSize=19&animation=fadeIn" width="100%" alt="Do Google Cloud para uma VPS em uma semana, com 95% menos na conta" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:E2CDA4,100:B8995F&height=210&section=header&text=Do%20Google%20Cloud%20para%20um%20servidor%20fixo&fontColor=14110C&fontSize=36&fontAlignY=36&desc=11%20m%C3%A1quinas%20viraram%201%2C%20em%20uma%20semana%2C%20com%2095%25%20menos%20na%20conta&descAlignY=58&descColor=14110C&descSize=19&animation=fadeIn" width="100%" alt="Do Google Cloud para um servidor de preço fixo: 11 máquinas viraram 1, em uma semana, com 95% menos na conta" />
 
 <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=20&pause=1300&color=B08D57&center=true&vCenter=true&width=720&lines=R%24+6%2C7+mil+%E2%86%92+~R%24+320+por+m%C3%AAs;14+minutos+fora+do+ar%2C+de+madrugada;O+que+deu+errado%2C+com+a+corre%C3%A7%C3%A3o;Uma+skill+para+o+Claude+conduzir+a+sua" alt="" />
 
 <br/>
 
 <a href="PLAYBOOK.md"><img src="https://img.shields.io/badge/Ler%20o%20playbook-D6BD8F?style=for-the-badge&logo=readthedocs&logoColor=14110C" alt="Ler o playbook" /></a>
-<a href="https://github.com/dantaspaulo/playbook-gcp-para-vps/releases/latest/download/nuvem-para-vps.zip"><img src="https://img.shields.io/badge/Baixar%20a%20skill%20(.zip)-1B1916?style=for-the-badge&logo=anthropic&logoColor=D6BD8F" alt="Baixar a skill" /></a>
+<a href="https://github.com/dantaspaulo/playbook-saida-do-google-cloud/releases/latest/download/nuvem-para-vps.zip"><img src="https://img.shields.io/badge/Baixar%20a%20skill%20(.zip)-1B1916?style=for-the-badge&logo=anthropic&logoColor=D6BD8F" alt="Baixar a skill" /></a>
 <a href="https://github.com/dantaspaulo"><img src="https://img.shields.io/badge/Quem%20fez-1B1916?style=for-the-badge&logo=github&logoColor=D6BD8F" alt="Quem fez" /></a>
 <img src="https://img.shields.io/badge/licen%C3%A7a-MIT-1B1916?style=for-the-badge" alt="Licença MIT" />
 
 <br/><br/>
 
 **Quando o crédito do Google acabou, a conta real do ChatADV apareceu: uns R$ 6,7 mil por mês.**<br/>
-Em seis dias, a produção inteira foi para uma VPS, com 14 minutos fora do ar, de madrugada.<br/>
+Em seis dias, as ~11 máquinas e os serviços gerenciados viraram **um servidor só, de preço fixo**,<br/>com 14 minutos fora do ar, de madrugada.<br/>
 Aqui está como, com os comandos, o que deu errado e uma skill para o Claude conduzir a sua.
 
 <br/>
 
 <picture>
   <source media="(max-width: 700px)" srcset="docs/assets/numeros-celular.svg" />
-  <img src="docs/assets/numeros.svg" width="100%" alt="−95% no custo mensal, 14 min fora do ar no corte, 6 dias do plano às VMs do Google apagadas, 11 máquinas virtuais viraram uma VPS" />
+  <img src="docs/assets/numeros.svg" width="100%" alt="−95% no custo mensal, 14 min fora do ar no corte, 6 dias do plano às VMs do Google apagadas, 11 máquinas virtuais viraram um servidor" />
 </picture>
 
 </div>
@@ -34,10 +34,10 @@ Aqui está como, com os comandos, o que deu errado e uma skill para o Claude con
 
 <picture>
   <source media="(max-width: 700px)" srcset="docs/assets/antes-depois-celular.svg" />
-  <img src="docs/assets/antes-depois.svg" width="100%" alt="Antes: R$ 6,7 mil por mês no Google Cloud. Depois: cerca de R$ 320 por mês numa VPS de 8 vCPU, 32 GB e 400 GB NVMe" />
+  <img src="docs/assets/antes-depois.svg" width="100%" alt="Antes: R$ 6,7 mil por mês no Google Cloud. Depois: cerca de R$ 320 por mês num servidor de 8 vCPU, 32 GB e 400 GB NVMe" />
 </picture>
 
-<sub>Antes: média de 19 a 23/09/2026 no export de faturamento, valor líquido. Depois: a VPS no preço de renovação, não no promocional, mais o que ficou no Google.</sub>
+<sub>Antes: média de 19 a 23/09/2026 no export de faturamento, valor líquido. Depois: o servidor no preço de renovação, não no promocional, mais o que ficou no Google.</sub>
 
 </div>
 
@@ -57,7 +57,7 @@ Aqui está como, com os comandos, o que deu errado e uma skill para o Claude con
 | Dia | O que aconteceu |
 |---|---|
 | antes | Cortes dentro do próprio Google: nós do Swarm e balanceador a menos, busca vetorial junto da busca em texto, discos do tamanho do uso. A conta já caiu bastante. |
-| 1 | MySQL sai do banco gerenciado para contêiner. Decisão: uma VPS, zero dependência do Google para rodar a produção. Portainer no ar à noite. |
+| 1 | MySQL sai do banco gerenciado para contêiner. Decisão: um servidor só, de preço fixo, e zero dependência do Google para rodar a produção. Portainer no ar à noite. |
 | 2 | Madrugada: busca copiada (3 min de parada), réplica do MySQL ligada, **corte geral em 14 min**. De manhã, provas com uso real. À tarde, Google **parado** (não apagado). |
 | 3 a 5 | Atualização de um serviço de dados, deploy sem queda medido, poda diária de disco. |
 | 6 | **Origem da aplicação fechada** para só aceitar o proxy. Tudo verde: VMs, discos, snapshots e IP fixo apagados. |
@@ -75,7 +75,7 @@ Um script com passos nomeados, **um por vez, parando no primeiro erro**, com a v
 | 3 | `parar` | aplicações e depois dados a zero, na origem |
 | 4 | `promover` | posição de replicação igual; banco novo aceita escrita; o antigo para |
 | 5 | `copiar` | delta final dos volumes, em segundos |
-| 6 | `subir` | stacks na VPS, dados primeiro |
+| 6 | `subir` | stacks no servidor novo, dados primeiro |
 | 7 | `testar` | cada domínio pelo IP novo, **antes** do DNS |
 | 8 | `dns` | troca só onde ainda estava o IP antigo |
 | 9 | `soltar` | filas andando |
@@ -116,28 +116,28 @@ pede o seu ok antes de qualquer coisa que muda estado**.
 1. **Mede o custo** lendo o CSV de faturamento (por serviço e SKU).
 2. **Faz o inventário só com comandos de leitura**: VMs, discos, IPs, bancos, buckets, serverless, DNS.
 3. **Separa o que tem estado** e define, para cada dado, como copiar, como conferir e como voltar.
-4. **Dimensiona a VPS pelo uso medido**, com a conta no preço de renovação.
-5. **Monta a VPS** com segurança: Swarm, Traefik, Portainer, deploy sem queda.
-6. **Ensaia, escreve o plano de corte** e põe **backup fora da VPS com restauração provada**.
+4. **Dimensiona o servidor pelo uso medido**, com a conta no preço de renovação.
+5. **Monta o servidor** com segurança: Swarm, Traefik, Portainer, deploy sem queda.
+6. **Ensaia, escreve o plano de corte** e põe **backup fora do servidor com restauração provada**.
 7. **Instala o vigia externo** e só depois desliga a nuvem antiga, devagar.
 
 **Claude Code** (macOS ou Linux):
 
 ```bash
-curl -L -o /tmp/nuvem-para-vps.zip https://github.com/dantaspaulo/playbook-gcp-para-vps/releases/latest/download/nuvem-para-vps.zip
+curl -L -o /tmp/nuvem-para-vps.zip https://github.com/dantaspaulo/playbook-saida-do-google-cloud/releases/latest/download/nuvem-para-vps.zip
 unzip -o /tmp/nuvem-para-vps.zip -d ~/.claude/skills/
 ```
 
 **Claude Code** (Windows, PowerShell):
 
 ```powershell
-Invoke-WebRequest -Uri https://github.com/dantaspaulo/playbook-gcp-para-vps/releases/latest/download/nuvem-para-vps.zip -OutFile "$env:TEMP\nuvem-para-vps.zip"
+Invoke-WebRequest -Uri https://github.com/dantaspaulo/playbook-saida-do-google-cloud/releases/latest/download/nuvem-para-vps.zip -OutFile "$env:TEMP\nuvem-para-vps.zip"
 Expand-Archive -Force "$env:TEMP\nuvem-para-vps.zip" "$HOME\.claude\skills\"
 ```
 
-**Claude.ai ou app:** baixe o [`.zip`](https://github.com/dantaspaulo/playbook-gcp-para-vps/releases/latest/download/nuvem-para-vps.zip) e envie em **Configurações → Capacidades → Skills**.
+**Claude.ai ou app:** baixe o [`.zip`](https://github.com/dantaspaulo/playbook-saida-do-google-cloud/releases/latest/download/nuvem-para-vps.zip) e envie em **Configurações → Capacidades → Skills**.
 
-Depois, peça do seu jeito: *"minha conta do Google Cloud está em R$ 4 mil, quero ir para uma VPS"*.
+Depois, peça do seu jeito: *"minha conta do Google Cloud está em R$ 4 mil, quero ir para um servidor de preço fixo"*.
 
 ### O que vem dentro
 
@@ -149,7 +149,7 @@ nuvem-para-vps/
 │   └── inventario_gcp.sh         inventário do projeto, só leitura
 ├── references/
 │   ├── estado.md                 como copiar e conferir cada tipo de dado
-│   ├── dimensionamento.md        tamanho da VPS pelo uso medido
+│   ├── dimensionamento.md        tamanho do servidor pelo uso medido
 │   ├── vps-segura.md             montar a máquina, na ordem
 │   ├── plano-de-corte.md         o roteiro do corte e da volta
 │   └── armadilhas.md             o que já deu errado
@@ -159,7 +159,7 @@ nuvem-para-vps/
     ├── app-exemplo-stack.yml     aplicação + banco com deploy sem queda
     ├── dreno.sh                  segura o SIGTERM para não derrubar requisição
     ├── origem-cloudflare.sh      fecha 80/443 para tudo que não for a Cloudflare
-    ├── backup.sh                 dumps diários para fora da VPS
+    ├── backup.sh                 dumps diários para fora do servidor
     ├── backup.teste.sh           prova de restauração em contêiner sem rede
     ├── vigia-worker.js           vigia externo em Cloudflare Worker
     └── wrangler.toml

@@ -46,7 +46,7 @@
 <circle class="md2" cx="420.0" cy="62" r="22" fill="#151310" stroke="#3A352E" stroke-width="1.6"/><text class="mk" x="420.0" y="69" text-anchor="middle">3</text>
 <g class="up" style="animation-delay:0.45s"><text class="mt" x="420.0" y="120" text-anchor="middle">Cortar</text><text class="ms" x="420.0" y="143" text-anchor="middle">um passo por vez,</text><text class="ms" x="420.0" y="161" text-anchor="middle">com volta pronta</text></g>
 <circle class="md3" cx="588.0" cy="62" r="22" fill="#151310" stroke="#3A352E" stroke-width="1.6"/><text class="mk" x="588.0" y="69" text-anchor="middle">4</text>
-<g class="up" style="animation-delay:0.60s"><text class="mt" x="588.0" y="120" text-anchor="middle">Vigiar</text><text class="ms" x="588.0" y="143" text-anchor="middle">de fora da VPS,</text><text class="ms" x="588.0" y="161" text-anchor="middle">a cada 5 minutos</text></g>
+<g class="up" style="animation-delay:0.60s"><text class="mt" x="588.0" y="120" text-anchor="middle">Vigiar</text><text class="ms" x="588.0" y="143" text-anchor="middle">de fora do servidor,</text><text class="ms" x="588.0" y="161" text-anchor="middle">a cada 5 minutos</text></g>
 <circle class="md4" cx="756.0" cy="62" r="22" fill="#151310" stroke="#3A352E" stroke-width="1.6"/><text class="mk" x="756.0" y="69" text-anchor="middle">5</text>
 <g class="up" style="animation-delay:0.75s"><text class="mt" x="756.0" y="120" text-anchor="middle">Desligar</text><text class="ms" x="756.0" y="143" text-anchor="middle">parar primeiro,</text><text class="ms" x="756.0" y="161" text-anchor="middle">apagar dias depois</text></g>
 <circle class="ponto" cx="84.0" cy="62" r="5" fill="#E2CDA4"/>

@@ -1,4 +1,4 @@
-# Do Google Cloud para uma VPS em uma semana
+# Do Google Cloud para um servidor de preço fixo, em uma semana
 
 *O playbook completo, na ordem em que aconteceu. Para a versão curta, veja o [README](README.md).*
 
@@ -6,7 +6,7 @@
 
 1. [O ponto de partida](#1-o-ponto-de-partida)
 2. [Primeiro, enxugar dentro da nuvem](#2-primeiro-enxugar-dentro-da-nuvem)
-3. [A decisão pela VPS](#3-a-decisão-pela-vps)
+3. [A decisão: um servidor de preço fixo](#3-a-decisão-um-servidor-de-preço-fixo)
 4. [Montar a máquina](#4-montar-a-máquina)
 5. [Ensaiar a cópia de cada dado](#5-ensaiar-a-cópia-de-cada-dado)
 6. [O corte, de madrugada](#6-o-corte-de-madrugada)
@@ -53,13 +53,18 @@ Isso derrubou a conta para uma fração, com risco baixo, em poucos dias. Se o s
 conta, **talvez você pare aqui**. Para nós, o resto ainda pagava por uma infraestrutura maior que
 a necessária, e a decisão foi zerar a dependência da nuvem para rodar a produção.
 
-## 3. A decisão pela VPS
+## 3. A decisão: um servidor de preço fixo
+
+No Google também eram máquinas virtuais. O que mudou foi o modelo: lá, cobrança por uso, ~11
+máquinas, banco gerenciado e balanceador; aqui, **um servidor só, num provedor de hospedagem, com
+preço fixo por mês**, e tudo o mais em contêiner dentro dele.
+
 
 - **Tamanho:** 8 vCPU, 32 GB de RAM e 400 GB NVMe, com tráfego de sobra. Saiu do uso medido somado
   das máquinas, com folga para pico, deploy e backup rodando juntos.
 - **Uma máquina só**, com Docker Swarm de um nó. Menos peças, sem rede entre nós, backup e
   monitoramento num lugar só, e a porta aberta para crescer.
-- **Região:** o plano desse tamanho não existia no Brasil, então a VPS fica nos EUA. Medimos a
+- **Região:** o plano desse tamanho não existia no Brasil, então o servidor fica nos EUA. Medimos a
   latência antes: ~88 ms do Brasil até ela, imperceptível numa aplicação web.
 - **Preço:** o plano pago adiantado por dois anos sai bem mais barato que a renovação. **Fiz a
   conta no preço de renovação**: mesmo assim, somando o que ficou no Google, a conta mensal fica
@@ -105,13 +110,13 @@ na faixa de menor uso medido da semana.
 
 | # | Passo | O que conferiu antes de seguir |
 |---|---|---|
-| 1 | `pre` (nada muda) | nenhum deploy em andamento; réplica do banco com atraso zero; integração de pagamento respondendo pelo IP da VPS; as mesmas imagens, por digest, nos dois lados; foto do estado atual salva para a volta |
+| 1 | `pre` (nada muda) | nenhum deploy em andamento; réplica do banco com atraso zero; integração de pagamento respondendo pelo IP do servidor novo; as mesmas imagens, por digest, nos dois lados; foto do estado atual salva para a volta |
 | 2 | `pausar` filas e agendador | alguns minutos seguidos sem nenhum job mexendo em dado |
 | 3 | `parar` aplicações e depois dados, na origem | cada grupo com zero tarefas rodando |
-| 4 | `promover` o banco novo | posição de replicação igual nos dois lados; réplica desligada; escrita liberada na VPS; banco antigo parado (dois bancos aceitando escrita é o pior cenário) |
+| 4 | `promover` o banco novo | posição de replicação igual nos dois lados; réplica desligada; escrita liberada no servidor novo; banco antigo parado (dois bancos aceitando escrita é o pior cenário) |
 | 5 | `copiar` o delta final dos volumes | retorno zero, uns 25 segundos |
-| 6 | `subir` as stacks na VPS, dados primeiro | tudo convergido em ~10 min |
-| 7 | `testar` cada domínio pelo IP da VPS, com o Host certo | páginas e respostas esperadas, **antes** de mexer no DNS |
+| 6 | `subir` as stacks no servidor novo, dados primeiro | tudo convergido em ~10 min |
+| 7 | `testar` cada domínio pelo IP do servidor novo, com o Host certo | páginas e respostas esperadas, **antes** de mexer no DNS |
 | 8 | `dns` | troca só onde o valor ainda era o IP antigo |
 | 9 | `soltar` filas e agendador | jobs andando |
 | 10 | `conferir` as URLs públicas | todas respondendo |
@@ -119,8 +124,8 @@ na faixa de menor uso medido da semana.
 **Tempo fora do ar: 14 minutos**, medido no log.
 
 A volta atrás estava escrita e ensaiada: devolver o DNS, repor as réplicas da origem a partir da
-foto do passo 1 e deixar a VPS em somente leitura. Com um detalhe importante: **depois do passo 4,
-o que fosse escrito na VPS não existiria na origem**. Por isso a decisão de seguir ou voltar
+foto do passo 1 e deixar o servidor novo em somente leitura. Com um detalhe importante: **depois do passo 4,
+o que fosse escrito no servidor novo não existiria na origem**. Por isso a decisão de seguir ou voltar
 acontecia no passo 7, com o site ainda parado.
 
 O trabalho foi conduzido por agentes de IA, com o meu ok em cada passo que mudava alguma coisa.
@@ -139,11 +144,11 @@ Ler e medir era livre; aplicar, não.
 
 Sair do Google com a infraestrutura não é fechar a conta:
 - **APIs** que o produto usa (login com Google, mapas, reCAPTCHA, modelos de IA) continuam lá.
-- **Um relay pequeno no Brasil:** uma API pública brasileira recusa IP de fora do país. A VPS nos
-  EUA chama o relay, e o relay chama a API.
+- **Um relay pequeno no Brasil:** uma API pública brasileira recusa IP de fora do país. O servidor
+  nos EUA chama o relay, e o relay chama a API.
 - **Os arquivos dos usuários, por mais alguns dias:** a troca para o armazenamento próprio tem
   janela separada, para não somar risco ao corte do banco.
-- **Buckets de backup**, como segundo destino fora da VPS.
+- **Buckets de backup**, como segundo destino fora do servidor.
 - **Um snapshot final**, por um mês, antes de apagar de vez.
 
 Custo do que ficou: poucos reais por dia.
@@ -151,9 +156,9 @@ Custo do que ficou: poucos reais por dia.
 ## 9. Backup
 
 - **Diário:** dump de cada banco, com recusa de dump cortado, cópia local de 7 dias e cópia para
-  **dois destinos fora da VPS**, em provedores diferentes.
-- **Credencial que só cria objetos** (não apaga nem sobrescreve) no destino de backup: se a VPS for
-  invadida, o invasor não leva os backups junto. A retenção fica com a regra do próprio bucket. Vale
+  **dois destinos fora do servidor**, em provedores diferentes.
+- **Credencial que só cria objetos** (não apaga nem sobrescreve) no destino de backup: se o servidor for
+  invadido, o invasor não leva os backups junto. A retenção fica com a regra do próprio bucket. Vale
   para todos os destinos; confira o que cada provedor permite restringir.
 - **Semanal, por desenho:** os arquivos dos usuários, snapshots da busca vetorial e uma cópia
   cifrada do sistema, com a chave fora do servidor.
@@ -165,12 +170,12 @@ Os modelos estão em [`nuvem-para-vps/assets/backup.sh`](nuvem-para-vps/assets/b
 
 ## 10. Vigiar de fora
 
-O monitor que mora na VPS cai junto com ela. Por isso:
+O monitor que mora no servidor cai junto com ele. Por isso:
 - **um vigia externo num Cloudflare Worker**, a cada 5 minutos, testando site, API e os outros
   serviços; avisa no grupo depois de **duas rodadas seguidas** com falha (uma falha isolada não
   acorda ninguém) e avisa de novo quando volta. Uma escrita por rodada no KV: 288 por dia, dentro
   do plano grátis. Modelo em [`vigia-worker.js`](nuvem-para-vps/assets/vigia-worker.js);
-- **Uptime Kuma** na VPS para o detalhe (latência, certificados, uma busca real a cada 5 minutos);
+- **Uptime Kuma** no servidor para o detalhe (latência, certificados, uma busca real a cada 5 minutos);
 - **alerta de disco** acima de 80%.
 
 ## 11. O que deu errado
@@ -180,7 +185,7 @@ vindo do Google parou de chegar; o TCP seguiu normal. Provável proteção contr
 o tráfego como ataque. A cópia e a réplica passaram para **SSH sobre TCP**, com um usuário só para
 isso e sem shell. De brinde, a cópia grande foi de ~13 para ~60 MB/s.
 
-**O gateway de pagamento recusou a VPS.** A chave da API era restrita por lista de IPs, e o IP novo
+**O gateway de pagamento recusou o servidor novo.** A chave da API era restrita por lista de IPs, e o IP novo
 não estava nela. O passo `pre` do corte testava exatamente isso e **recusou seguir** duas vezes, até
 o IP ser liberado. Sem o portão, o corte teria seguido com pagamento quebrado.
 
@@ -212,7 +217,7 @@ volume: plugins instalados à mão num serviço de automação e a credencial gu
 busca. Correção: volume ou imagem própria, e, depois de recriar, provar a função de verdade (um
 webhook real), não só a rota de saúde.
 
-**Uma versão do banco vetorial com defeito.** A VPS subiu com uma versão diferente da que rodava
+**Uma versão do banco vetorial com defeito.** O servidor novo subiu com uma versão diferente da que rodava
 antes, e ela tinha um defeito que aparecia depois de apagar muitos registros de uma vez: a busca
 deu erro por alguns minutos. Ajuste de configuração e a versão de correção resolveram. Lição: subir
 na máquina nova exatamente a versão ensaiada, e tratar atualização de serviço com estado como
@@ -244,7 +249,7 @@ janela própria.
 **Decidir**
 - [ ] cortar o que dá dentro da nuvem primeiro
 - [ ] tabela de serviços com estado: tamanho, método de cópia, conferência, parada aceitável, volta
-- [ ] VPS dimensionada pelo uso medido; conta feita no preço de renovação
+- [ ] servidor dimensionado pelo uso medido; conta feita no preço de renovação
 - [ ] latência medida até a região disponível
 
 **Montar**
@@ -256,7 +261,7 @@ janela própria.
 - [ ] cópia de cada dado com contagem igual nos dois lados
 - [ ] tempo de cada cópia medido
 - [ ] integrações externas testadas pelo IP novo
-- [ ] backup fora da VPS e restauração provada
+- [ ] backup fora do servidor e restauração provada
 
 **Cortar**
 - [ ] TTL do DNS baixo na véspera; aviso a quem precisa
